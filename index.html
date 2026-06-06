@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Haryo Prabowo — Marketing Manager & Data-Driven Growth</title>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --border: #1f1f2e;
+    --text: #e2e2f0;
+    --muted: #9ca3af;
+    --accent: #6ee7b7;
+    --accent-2: #60a5fa;
+    --accent-3: #c084fc;
+    --gradient: linear-gradient(135deg, #6ee7b7, #60a5fa, #c084fc);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.7;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 20% 50%, rgba(110, 231, 183, 0.08), transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(96, 165, 250, 0.08), transparent 50%);
+    pointer-events: none;
+  }
+  .hero-content { max-width: 720px; position: relative; z-index: 1; }
+  .hero h1 {
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+  .hero h1 span {
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero p.lead {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+  }
+  .badges { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-bottom: 1.5rem; }
+  .badge {
+    padding: 0.35rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    color: var(--muted);
+    background: var(--surface);
+  }
+  .cta-row { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    padding: 0.65rem 1.25rem;
+    border-radius: 0.6rem;
+    border: 1px solid var(--border);
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-primary {
+    background: var(--gradient);
+    color: #000;
+    border-color: transparent;
+  }
+  .btn-secondary { background: var(--surface); color: var(--text); }
+  .btn-secondary:hover { border-color: var(--accent); }
+
+  /* Sections */
+  section { padding: 4rem 1.5rem; max-width: 960px; margin: 0 auto; }
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .section-title::before {
+    content: "";
+    display: block;
+    width: 4px;
+    height: 1.4rem;
+    background: var(--gradient);
+    border-radius: 2px;
+  }
+
+  /* About */
+  .about-text { color: var(--muted); margin-bottom: 1.25rem; font-size: 1.05rem; }
+  .about-text strong { color: var(--text); }
+  .highlight-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    padding: 1rem 1.25rem;
+    margin-top: 1rem;
+  }
+  .highlight-box .metric {
+    font-size: 1.6rem;
+    font-weight: 800;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .highlight-box .label { color: var(--muted); font-size: 0.9rem; }
+
+  /* Experience */
+  .timeline { border-left: 1px solid var(--border); padding-left: 1.25rem; margin-left: 0.5rem; }
+  .timeline-item { position: relative; margin-bottom: 2.25rem; }
+  .timeline-item::before {
+    content: "";
+    position: absolute;
+    left: -1.45rem;
+    top: 0.35rem;
+    width: 0.6rem;
+    height: 0.6rem;
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(110, 231, 183, 0.15);
+  }
+  .timeline-item h3 { font-size: 1.1rem; margin-bottom: 0.15rem; }
+  .timeline-item .meta {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+  .timeline-item ul {
+    padding-left: 1.2rem;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .timeline-item ul li { margin-bottom: 0.35rem; }
+
+  /* Projects */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    padding: 1.15rem;
+    transition: border-color 0.2s ease, transform 0.15s ease;
+  }
+  .project-card:hover { border-color: var(--accent-2); transform: translateY(-2px); }
+  .project-card h3 { font-size: 1rem; margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.4rem; }
+  .project-card p { color: var(--muted); font-size: 0.9rem; margin-bottom: 0.6rem; }
+  .project-card .tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  .tag {
+    font-size: 0.72rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: 9999px;
+    background: rgba(96, 165, 250, 0.12);
+    color: var(--accent-2);
+    border: 1px solid rgba(96, 165, 250, 0.25);
+  }
+
+  /* Tools */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 0.75rem;
+  }
+  .tool-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 0.6rem;
+    padding: 0.9rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.9rem;
+    color: var(--text);
+  }
+  .tool-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--gradient);
+    flex-shrink: 0;
+  }
+
+  /* Contact */
+  .contact { text-align: center; }
+  .contact-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1rem; }
+
+  footer {
+    text-align: center;
+    padding: 2rem 1rem;
+    color: var(--muted);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 480px) {
+    .timeline { padding-left: 1rem; margin-left: 0.35rem; }
+    .timeline-item::before { left: -1.32rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>Hey, I'm <span>Haryo Prabowo</span></h1>
+    <p class="lead">
+      Marketing Manager turning 1.2B budgets into &gt;1150% ROI — with data science rigor, SEO/SEM expertise, and a knack for launching products that scale.
+    </p>
+    <div class="badges">
+      <span class="badge">Performance Marketing</span>
+      <span class="badge">SEO / SEM</span>
+      <span class="badge">Data Science</span>
+      <span class="badge">Marketing Analytics</span>
+      <span class="badge">Google & Meta Ads</span>
+    </div>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="mailto:hprabowo076@gmail.com">Get in touch</a>
+      <a class="btn btn-secondary" href="https://www.linkedin.com/in/haryo-prabowo/" target="_blank" rel="noopener">View LinkedIn</a>
+      <a class="btn btn-secondary" href="https://github.com/hprabowo076" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section id="about">
+  <h2 class="section-title">About</h2>
+  <p class="about-text">
+    I'm a <strong>Marketing Management graduate from Universitas Indonesia</strong> with 4+ years of experience in digital marketing and performance growth. I lead campaigns, build dashboards, and launch products — always grounded in data.
+  </p>
+  <p class="about-text">
+    Currently <strong>Marketing Manager at Bani Aqiqah</strong>, where I manage a 1.2B marketing budget across multi-channel campaigns and consistently hit <strong>>1150% ROI</strong>. I've increased product contribution margin up to 3x and led the launch of 5 product lines in 3 months.
+  </p>
+  <p class="about-text">
+    I also bring a <strong>data science lens</strong> — Python, SQL, and analytics tooling — to turn messy marketing data into clean, actionable insights. I'm comfortable sitting at the intersection of marketing, product, operations, and finance.
+  </p>
+  <div class="highlight-box">
+    <div class="metric">>1150%</div>
+    <div class="label">Consistent campaign ROI at Bani Aqiqah</div>
+  </div>
+</section>
+
+<!-- Experience -->
+<section id="experience">
+  <h2 class="section-title">Experience</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <h3>Marketing Manager</h3>
+      <div class="meta">Bani Aqiqah · Jan 2022 – Present · Bekasi</div>
+      <ul>
+        <li>Managed a 1.2B marketing budget across multi-channel campaigns with >1150% ROI.</li>
+        <li>Increased unit contribution margin up to 3x by launching new products and overseas sites.</li>
+        <li>Directed social media, creative, and advertising strategy; maintained Google & Meta partnerships.</li>
+        <li>Built real-time sales & marketing dashboards for funnel insights.</li>
+      </ul>
+    </div>
+    <div class="timeline-item">
+      <h3>Digital Marketing Executive</h3>
+      <div class="meta">Bani Aqiqah · Jan 2022 – Jun 2022 · Bekasi</div>
+      <ul>
+        <li>Planned and executed social media, Google Ads, and Facebook Ads for the company and clients.</li>
+        <li>Built reporting systems and WordPress-based marketing assets that drove revenue growth.</li>
+      </ul>
+    </div>
+    <div class="timeline-item">
+      <h3>Sales Trainee Academy</h3>
+      <div class="meta">Ruangguru · Sep 2021 – Dec 2021 · Bekasi</div>
+      <ul>
+        <li>Organized and presented student webinars; refined negotiation through structured sales training.</li>
+      </ul>
+    </div>
+    <div class="timeline-item">
+      <h3>Operations Intern</h3>
+      <div class="meta">PT Surveyor Indonesia · Feb 2020 – Jul 2020 · Jakarta</div>
+      <ul>
+        <li>Built automated Excel workflows that cut ADOPS survey invoicing time by ~50%.</li>
+        <li>Led intern team on YoY revenue analysis used by division stakeholders for business decisions.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Tech & tools -->
+<section id="tools">
+  <h2 class="section-title">Tech & Tools</h2>
+  <div class="tools-grid">
+    <div class="tool-card"><span class="tool-dot"></span>Google Ads</div>
+    <div class="tool-card"><span class="tool-dot"></span>Meta Ads</div>
+    <div class="tool-card"><span class="tool-dot"></span>SEO / SEM</div>
+    <div class="tool-card"><span class="tool-dot"></span>Google Analytics</div>
+    <div class="tool-card"><span class="tool-dot"></span>Python</div>
+    <div class="tool-card"><span class="tool-dot"></span>SQL</div>
+    <div class="tool-card"><span class="tool-dot"></span>Excel / VBA</div>
+    <div class="tool-card"><span class="tool-dot"></span>WordPress</div>
+    <div class="tool-card"><span class="tool-dot"></span>GitHub</div>
+    <div class="tool-card"><span class="tool-dot"></span>Dashboards</div>
+  </div>
+</section>
+
+<!-- Projects -->
+<section id="projects">
+  <h2 class="section-title">Projects</h2>
+  <div class="projects-grid">
+    <a class="project-card" href="https://github.com/hprabowo076/Claude-Autopilot" target="_blank" rel="noopener">
+      <h3>Claude-Autopilot</h3>
+      <p>Standalone CLI fork for automation workflows.</p>
+      <div class="tags"><span class="tag">TypeScript</span><span class="tag">CLI</span></div>
+    </a>
+    <a class="project-card" href="https://github.com/hprabowo076/PWA-BNGR" target="_blank" rel="noopener">
+      <h3>PWA-BNGR</h3>
+      <p>Progressive Web App for Bani Group with modern UX.</p>
+      <div class="tags"><span class="tag">TypeScript</span><span class="tag">PWA</span></div>
+    </a>
+    <a class="project-card" href="https://github.com/hprabowo076/Customer-Classification" target="_blank" rel="noopener">
+      <h3>Customer Classification</h3>
+      <p>Classification project on telemarketing effectiveness in banking.</p>
+      <div class="tags"><span class="tag">Python</span><span class="tag">Jupyter</span><span class="tag">ML</span></div>
+    </a>
+    <a class="project-card" href="https://github.com/hprabowo076/Exploratory-Data-Analysis" target="_blank" rel="noopener">
+      <h3>Exploratory Data Analysis</h3>
+      <p>Python-based EDA project with structured analysis and visuals.</p>
+      <div class="tags"><span class="tag">Python</span><span class="tag">EDA</span></div>
+    </a>
+    <a class="project-card" href="https://github.com/hprabowo076/UK-Bank-Customer-Dashboard" target="_blank" rel="noopener">
+      <h3>UK Bank Customer Dashboard</h3>
+      <p>Bank customer dashboard built with Google Data Studio.</p>
+      <div class="tags"><span class="tag">Analytics</span><span class="tag">Dashboard</span></div>
+    </a>
+  </div>
+</section>
+
+<!-- Education -->
+<section id="education">
+  <h2 class="section-title">Education</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <h3>B.Sc. Management (Marketing)</h3>
+      <div class="meta">Universitas Indonesia · 2015 – 2020</div>
+    </div>
+    <div class="timeline-item">
+      <h3>Data Science Bootcamp</h3>
+      <div class="meta">Dibimbing.id · 2021 – 2022</div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="contact">
+  <h2 class="section-title" style="justify-content: center;">Contact</h2>
+  <p class="about-text" style="text-align: center; max-width: 520px; margin: 0 auto 1.25rem;">
+    I'm open to freelance projects, remote roles, and collaborations. Reach out and let's talk.
+  </p>
+  <div class="contact-links">
+    <a class="btn btn-primary" href="mailto:hprabowo076@gmail.com">Email</a>
+    <a class="btn btn-secondary" href="https://www.linkedin.com/in/haryo-prabowo/" target="_blank" rel="noopener">LinkedIn</a>
+    <a class="btn btn-secondary" href="https://github.com/hprabowo076" target="_blank" rel="noopener">GitHub</a>
+    <a class="btn btn-secondary" href="https://drive.google.com/file/d/1d6-xoAnbGg0_-SS-h_lLK-reR-mnNIOo/view?usp=drive_link">Resume</a>
+  </div>
+</section>
+
+<footer>
+  © <span id="year"></span> Haryo Prabowo · Built with care.
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
