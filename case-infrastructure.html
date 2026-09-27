@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Self-hosting a business stack with AI agents — Haryo Prabowo</title>
+<meta name="description" content="How 74 agentic coding sessions and 26M output tokens replaced Google Sheets and AppSheet with a self-hosted production stack on a 2GB VPS — with no extra infrastructure spend.">
+<link rel="icon" href="favicon.svg">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="brand" href="index.html">Haryo Prabowo</a>
+  <div class="links">
+    <a href="index.html">Home</a>
+    <a href="case-marketing.html">Marketing</a>
+    <a href="case-kantorku.html">Modeling</a>
+  </div>
+</div></nav>
+
+<article><div class="wrap">
+  <a class="back" href="index.html">&larr; All work</a>
+  <h1>Self-hosting a business stack with AI agents</h1>
+  <p class="meta">
+    74 agentic coding sessions &middot; 26,089,016 output tokens &middot; 2 vCPU / 1.9 GiB RAM
+    &middot; Rp100,000/month &middot; zero added infrastructure spend
+  </p>
+
+  <p>
+    The question I started with was simple: <em>can I replace an entire business stack — Google
+    Sheets, AppSheet, scattered forms — with something self-hosted, fast, and maintainable, without
+    adding a single rupiah of cost?</em>
+  </p>
+  <p>
+    Two months later the answer is running in production. This is what it took, what broke, and
+    what I'd do differently.
+  </p>
+
+  <div class="callout">
+    <p>
+      <b>The one-line version:</b> I replaced a spreadsheet-and-no-code stack with a self-hosted
+      production system — built with AI coding agents, on hardware with less RAM than a modern
+      phone, without a backup plan that involved spending money.
+    </p>
+  </div>
+
+  <h2>The three constraints that decided everything</h2>
+  <p>
+    Architecture is never a series of unconstrained good decisions. These three limits predicted
+    almost every technical choice that followed.
+  </p>
+
+  <h3>1. 2 vCPU and 1.9 GiB of RAM</h3>
+  <p>
+    No burstable CPU, no SSD guarantee. The VPS cost about Rp100,000 per month — a budget machine,
+    not a development playground. Within the first week the constraint bit: the server choked
+    during <code>apt upgrade</code>. I added a swap file. By the third week, memory pressure made
+    the box unresponsive mid-development, which led to the zram/zswap investigation and the
+    OOM-protection drop-in now sitting next to the service unit.
+  </p>
+  <p>This single constraint explains the rest:</p>
+  <ul>
+    <li><b>No Docker.</b> Container overhead was memory we did not have. systemd services only.</li>
+    <li><b>Monitoring stayed on the private network.</b> Exposing it would add load and attack surface.</li>
+    <li><b>Automation is killed during upgrades.</b> When memory is the constraint, keeping automation and keeping the server responsive are real trade-offs, not best practices.</li>
+    <li><b>Playwright MCP became Playwright CLI.</b> A memory-hog process had to go.</li>
+  </ul>
+
+  <h3>2. A Claude Pro subscription, not an API budget</h3>
+  <p>
+    Every token came out of a flat subscription. No API billing, no bring-your-own-key. So tokens
+    were not a variable cost to be spent — they were a hard weekly ceiling to be <em>planned</em>
+    around.
+  </p>
+  <p>This shaped the workflow more than the architecture:</p>
+  <ul>
+    <li>The <code>/compact</code> + <code>/resume</code> ritual was not optional; it was survival.</li>
+    <li>Moving a daily report from midnight to 01:00 was about spreading consumption across the hourly reset, not about business hours.</li>
+    <li>Deliberate model routing (a strong model for complex work, a cheap one for lookups) was the mechanism for stretching the cap.</li>
+  </ul>
+
+  <h3>3. Zero additional project budget</h3>
+  <p>Total spend: VPS, domain, and the AI subscription. No CI/CD service, no managed database, no monitoring SaaS, no backup vendor.</p>
+  <table>
+    <tr><th>Instead of</th><th>I used</th></tr>
+    <tr><td>Zapier / Make</td><td>Self-hosted n8n</td></tr>
+    <tr><td>RDS / Cloud SQL</td><td>PostgreSQL on the VPS</td></tr>
+    <tr><td>Backblaze / AWS backup</td><td>Off-site backup on a schedule, via rclone</td></tr>
+    <tr><td>CloudFront + WAF</td><td>Cloudflare free tier</td></tr>
+    <tr><td>Budibase / NocoDB Pro / AppSheet</td><td>A purpose-built application</td></tr>
+    <tr><td>VPN appliances</td><td>Tailscale mesh VPN</td></tr>
+  </table>
+  <p>
+    In hindsight the budget constraint was liberating. It forced a "self-host first, pay second"
+    discipline that produced a stack with no recurring dependency beyond the box itself.
+  </p>
+
+  <h2>What runs in production</h2>
+  <table>
+    <tr><th>Layer</th><th>Technology</th><th>Role</th></tr>
+    <tr><td>Edge</td><td>Nginx</td><td>TLS termination, reverse proxy, rate limiting, security headers</td></tr>
+    <tr><td>Application</td><td>Bun + Hono, TypeScript</td><td>Internal operations app and messaging bridge</td></tr>
+    <tr><td>Data</td><td>PostgreSQL 17</td><td>Application and automation data, bound to localhost only</td></tr>
+    <tr><td>Automation</td><td>n8n</td><td>Webhook-driven workflows, self-hosted instead of Zapier</td></tr>
+    <tr><td>Integration</td><td>WhatsApp Business API via MCP tool servers</td><td>Customer communication, multiple instances</td></tr>
+    <tr><td>Observability</td><td>Uptime Kuma, logrotate, heartbeat alerting</td><td>Private-network monitoring with push alerts</td></tr>
+    <tr><td>Security</td><td>UFW, SSH hardening, Fail2Ban, Tailscale</td><td>SSH is the only directly open port</td></tr>
+  </table>
+
+  <h2>Infrastructure as code, on a 2GB budget</h2>
+  <p>
+    The stack is reproducible from a repository, not from muscle memory. The infrastructure repo
+    holds the installer, the backup and restore scripts, a configuration drift checker, health
+    heartbeats, and a mirror of the host's package, proxy, service, and scheduled-task
+    configuration.
+  </p>
+  <p>
+    Drift detection runs on a schedule and reports through the same heartbeat channel as backup
+    failures — so the box tells me when reality and the repo have diverged, instead of me finding
+    out during an incident. Backups run to off-site storage on a schedule. There is a written
+    disaster-recovery runbook, because a restore path you haven't tested is a wish, not a plan.
+  </p>
+
+  <h2>What the agentic part actually looked like</h2>
+  <p>
+    The AI did not replace engineering judgment. It replaced the throughput ceiling. Across 74
+    sessions and 17 days of cached context, 613 million cache reads and 26 million output tokens
+    went into one system.
+  </p>
+  <p>The hard parts were not the code. They were:</p>
+  <ul>
+    <li><b>Deciding what to delete.</b> I tried two no-code backends before building anything. Both were square pegs for a round hole, and recognizing that early saved weeks.</li>
+    <li><b>Surviving the memory wall.</b> Sessions that should have taken minutes started dying with <code>low memory (366MB free) — retiring settled workers</code>. The fix wasn't clever prompting; it was zram, swap, and killing a process that had no business being there.</li>
+    <li><b>Knowing when the symptom and the disease diverged.</b> The form-broken phase went on for days. The real fix was removing the dependency on the thing that kept breaking, not debugging it again.</li>
+  </ul>
+  <div class="callout">
+    <p>
+      <b>The transferable lesson:</b> agentic development moves the bottleneck from typing to
+      architecture and judgment. The sessions where I lost time were never the ones where the
+      model was slow — they were the ones where I hadn't decided what I wanted yet.
+    </p>
+  </div>
+
+  <h2>Why this matters outside a marketing role</h2>
+  <p>
+    I built this while running marketing. The reason it exists is a marketing problem: order flow
+    and customer communication were manual, the data lived in spreadsheets, and nobody could get a
+    reliable number without asking me. Automating it was a growth decision, and it turned into an
+    infrastructure one.
+  </p>
+  <p>
+    That is the point of this page. The marketing instinct — find the bottleneck, fix it, measure
+    the result — did not stop at the ad budget. In most companies it stops there, because the
+    person who owns the funnel is not the person who can deploy the fix. I have been both at once
+    for two months, and I would rather keep being both than choose.
+  </p>
+
+  <p><a href="index.html">&larr; Back to all work</a></p>
+</div></article>
+
+<footer><div class="wrap">
+  <span>Haryo Prabowo — portfolio</span>
+  <span>Bekasi, Indonesia · 2026</span>
+</div></footer>
+
+</body>
+</html>

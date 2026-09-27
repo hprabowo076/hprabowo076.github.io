@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Funnel &amp; CAC modeling exercise — Haryo Prabowo</title>
+<meta name="description" content="A self-directed acquisition modeling exercise: Meta Ads budget allocation across funnel stages, campaign structure, CPL spike diagnosis, and defensible CAC/LTV for a low-ticket B2B SaaS.">
+<link rel="icon" href="favicon.svg">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="brand" href="index.html">Haryo Prabowo</a>
+  <div class="links">
+    <a href="index.html">Home</a>
+    <a href="case-infrastructure.html">Infrastructure</a>
+    <a href="case-marketing.html">Marketing</a>
+  </div>
+</div></nav>
+
+<article><div class="wrap">
+  <a class="back" href="index.html">&larr; All work</a>
+  <h1>Modeling acquisition for a low-ticket B2B SaaS</h1>
+  <p class="meta">Self-directed modeling exercise &middot; Meta Ads funnel design, CPL diagnosis, CAC/LTV</p>
+
+  <div class="callout">
+    <p>
+      <b>What this is:</b> a modeling exercise I completed on my own time, solving a third-party
+      brief for a B2B HRIS product. KantorKu is not my company and I have not operated its ads.
+      What this demonstrates is the method, not a client result — the brief supplied the
+      constraints, and the modeling is mine.
+    </p>
+  </div>
+
+  <p>
+    The brief: given Rp100,000,000/month in Meta budget, a Rp50,000 target CPL, a 10% landing page
+    conversion rate, and a 25% SQL rate, produce a defensible acquisition plan and a target CAC for
+    a product priced under Rp3 million per month.
+  </p>
+  <p>
+    That is a small budget against a SaaS price point, which makes the funnel model the whole
+    argument. Here is the model.
+  </p>
+
+  <h2>Volume the funnel backwards from CAC</h2>
+  <p>Starting at CPL Rp50,000 and working down to revenue:</p>
+  <table>
+    <tr><th>Stage</th><th>Math</th><th>Monthly</th></tr>
+    <tr><td>Leads</td><td>100,000,000 &divide; 50,000</td><td>2,000</td></tr>
+    <tr><td>Landing page views needed</td><td>2,000 &divide; 10% CVR</td><td>20,000</td></tr>
+    <tr><td>SQLs</td><td>2,000 &times; 25% SQL rate</td><td>500</td></tr>
+    <tr><td>Paying customers at Rp1.2M CAC</td><td>100,000,000 &divide; 1,200,000</td><td>~83</td></tr>
+  </table>
+  <p>
+    The implied SQL&rarr;customer conversion is 16.6%, which is where the model gets interesting:
+    that number is not a marketing assumption, it is a <em>sales and demo capacity assumption</em>.
+    If the demo team can only run 60 closes a month, the CAC the budget actually delivers is
+    Rp1.67M, not Rp1.2M. The bottleneck moves downstream of the ad account.
+  </p>
+
+  <h2>Budget allocation across funnel stages</h2>
+  <table>
+    <tr><th>Stage</th><th>Share</th><th>Campaign goal</th><th>Purpose</th></tr>
+    <tr><td>Prospecting</td><td>35% &middot; Rp35M</td><td>Reach, video views, traffic</td><td>Build the top-of-funnel audience, lookalike seeds, and retargeting pools</td></tr>
+    <tr><td>Consideration</td><td>30% &middot; Rp30M</td><td>Landing page views, engagement</td><td>Chase LP views and CVR to benchmark creative and landing page quality</td></tr>
+    <tr><td>Retargeting</td><td>20% &middot; Rp20M</td><td>Retargeting visitors, video engagers, past leads</td><td>Convert warm audience into SQLs and demo bookings, excluding converters</td></tr>
+    <tr><td>Lead gen &amp; conversion</td><td>15% &middot; Rp15M</td><td>Instant forms, direct WhatsApp, web conversion</td><td>Capture high-intent leads; higher CPC accepted to remove conversion friction</td></tr>
+  </table>
+  <p>
+    The weighting is deliberate: 85% goes to demand creation and capture, 15% to bottom-funnel
+    conversion. Inverting that ratio is the most common error in low-CAC-count accounts — you
+    cannot retarget an audience you have not built.
+  </p>
+
+  <h2>Campaign structure: 11&ndash;12 campaigns, split by creative</h2>
+  <p>Each funnel stage is divided so learnings arrive fast and winning creative is isolatable.</p>
+  <ul>
+    <li><b>Prospecting (3).</b> 1% lookalike of best customers/SQLs first &mdash; historically the best performer. One interest campaign (HR, payroll, productivity, UMKM) for scale. One vertical-video awareness campaign to feed retargeting.</li>
+    <li><b>Consideration (3).</b> One campaign per creative variant &mdash; video hero, static value proposition, carousel demo &mdash; so the winning angle is identifiable and can be scaled on CVR lift rather than on CTR.</li>
+    <li><b>Retargeting (3&ndash;4).</b> Segmented by recency and intent: 7-day landing page visitors, video viewers at 25&ndash;75% and engagers at 7&ndash;30 days, form openers and abandoners, and past leads. Each gets different creative &mdash; urgency, case study, demo call-to-action &mdash; because a repeat of a prospecting ad to a warm audience wastes the impression.</li>
+    <li><b>Lead gen &amp; conversion (2&ndash;3).</b> Meta Lead Ads instant forms and direct WhatsApp remove the friction of a web form. Web conversion campaigns feed the lookalike audience.</li>
+  </ul>
+
+  <h2>Creative testing: five angles</h2>
+  <table>
+    <tr><th>Angle</th><th>Hook</th><th>Format</th></tr>
+    <tr><td>Pain &rarr; solution</td><td>"Payroll salah lagi? Udah kena potong, kena semprot jg lagi."</td><td>15s video</td></tr>
+    <tr><td>Time saved</td><td>"Hemat waktu sampai 92% per bulan &mdash; buktikan sendiri."</td><td>Infographic carousel + static</td></tr>
+    <tr><td>Feature-led demo</td><td>"Absensi GPS &rarr; Payroll &rarr; auto slip"</td><td>15&ndash;30s screen-recorded product demo</td></tr>
+    <tr><td>Social proof</td><td>"Stop pusingin X; dipakai X perusahaan"</td><td>Static + testimonial clip</td></tr>
+    <tr><td>Offer / urgency</td><td>Free 30-day trial, onboarding promo</td><td>Shorts</td></tr>
+  </table>
+  <p>
+    Formats tested: Reels/Shorts at 15&ndash;45 seconds, single image, and carousel. The pain-point
+    and demo angles are the ones I would build first, because they target the specific failure that
+    makes a prospect look up a competitor.
+  </p>
+
+  <h2>Diagnosing a 35% CPL rise inside 48 hours</h2>
+  <p>
+    This is the question that separates a media buyer from a campaign operator. Fast mitigation
+    first &mdash; pause the lowest-CTR ad sets, refresh creative, cut daily spend on non-performing
+    ad sets &mdash; then the actual diagnosis, in this order:
+  </p>
+
+  <h3>1. Tracking and web events</h3>
+  <p>
+    Verify the pixel and Conversions API are firing, and check recent changes to them. Confirm
+    lead forms, direct WhatsApp, and CTAs still submit.
+  </p>
+  <p>
+    This is first because of a specific failure mode: if the conversion event breaks, tracked
+    conversions fall, and the algorithm bids as if CPL genuinely rose &mdash; while real performance
+    is unchanged. You can burn a week optimizing against a number that is broken.
+  </p>
+
+  <h3>2. Creative and audience signals</h3>
+  <p>
+    Check CTR, CPC, frequency, and relevance ranking. Falling CTR or frequency above 2.5&ndash;3 is
+    creative fatigue, and it needs new creative or a new audience, not a bid change.
+  </p>
+
+  <h3>3. Auction and bidding</h3>
+  <p>
+    Check CPM and CPC. A significant rise points to competitor movement or a seasonal event. Mitigate
+    by reducing budget temporarily, shifting spend to campaigns with better CPA, or narrowing
+    targeting.
+  </p>
+  <p>Also ruled out in parallel: landing page and site health, CTA, and policy or disapprovals.</p>
+
+  <h2>The CAC question</h2>
+  <p>
+    Target CAC of Rp1,200,000 is defensible for this product, with an ideal band of
+    Rp500,000&ndash;2,000,000. The assumptions that produce it:
+  </p>
+  <ul>
+    <li>Price Rp15,000 per employee per month</li>
+    <li>Average client 30&ndash;50 employees</li>
+    <li>ARPU Rp450,000&ndash;750,000 per month</li>
+    <li>Gross margin 50% (SaaS)</li>
+  </ul>
+  <p>
+    At Rp450,000 ARPU, annual revenue is Rp5.4M and gross profit ~Rp2.7M. Over a three-year
+    retention, LTV is Rp8.1M &mdash; an <b>LTV/CAC ratio of 6.75</b>. CAC stays healthy even with
+    severe churn, because a customer who stays only one year still clears acquisition cost. There is
+    headroom below Rp1.2M to optimize further.
+  </p>
+
+  <h2>What this exercise demonstrates</h2>
+  <p>
+    Not that I have run this account &mdash; I have not. That I can take a business constraint set,
+    invert the funnel from an economic target, allocate budget against a stage-weighted model,
+    structure campaigns so learnings arrive within days rather than weeks, and distinguish a
+    tracking failure from a genuine auction problem inside a 48-hour window. Those are the parts
+    of performance marketing that transfer to any account.
+  </p>
+
+  <p><a href="index.html">&larr; Back to all work</a></p>
+</div></article>
+
+<footer><div class="wrap">
+  <span>Haryo Prabowo — portfolio</span>
+  <span>Bekasi, Indonesia · 2026</span>
+</div></footer>
+
+</body>
+</html>
