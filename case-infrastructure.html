@@ -73,7 +73,7 @@
   </p>
   <p>This single constraint explains the rest:</p>
   <ul>
-    <li><b>No Docker.</b> Container overhead was memory we did not have. systemd services only.</li>
+    <li><b>No containers.</b> Container overhead was memory we did not have. systemd services only.</li>
     <li><b>Monitoring stayed on the private network.</b> Exposing it would add load and attack surface.</li>
     <li><b>Automation is killed during upgrades.</b> When memory is the constraint, keeping automation and keeping the server responsive are real trade-offs, not best practices.</li>
     <li><b>Playwright MCP became Playwright CLI.</b> A memory-hog process had to go.</li>
