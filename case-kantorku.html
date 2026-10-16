@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Funnel &amp; CAC modelling exercise — Haryo Prabowo</title>
+<title>Modelling acquisition for a low-ticket B2B SaaS — Haryo Prabowo</title>
 <meta name="description" content="A self-directed acquisition modelling exercise: Meta Ads budget allocation across funnel stages, campaign structure, CPL spike diagnosis, and a modelled CAC and LTV for a low-ticket B2B SaaS (exercise, not client results).">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Haryo Prabowo">
@@ -26,9 +26,11 @@
   <a class="brand" href="index.html">Haryo Prabowo</a>
   <div class="links">
     <a href="index.html">Home</a>
-    <a href="case-infrastructure.html">Infrastructure</a>
     <a href="case-marketing.html">Marketing</a>
     <a href="case-measurement.html">Measurement</a>
+    <a href="case-infrastructure.html">Infrastructure</a>
+    <a href="case-kantorku.html">SaaS model</a>
+    <a href="resume.pdf">Resume (PDF)</a>
   </div>
 </div></nav>
 
@@ -40,14 +42,14 @@
   <div class="callout">
     <p>
       <b>What this is:</b> a modelling exercise I completed on my own time, solving a third-party
-      brief for a B2B HRIS product. KantorKu is not my company and I have not operated its ads.
+      brief for a B2B HRIS brand (KantorKu brief). KantorKu is not my company and I have not operated its ads.
       What this demonstrates is the method, not a client result — the brief supplied the
       constraints, and the modelling is mine.
     </p>
   </div>
 
   <p>
-    The brief: given Rp100,000,000/month in Meta budget, a Rp50,000 target CPL, a 10% landing page
+    The brief: given Rp100,000,000/month in Meta budget, a Rp50,000 target CPL (blended across all stages; most leads come from the lead-gen and retargeting campaigns), a 10% landing page
     conversion rate, and a 25% SQL rate, produce a defensible acquisition plan and a target CAC for
     a product priced under Rp3 million per month.
   </p>
@@ -82,14 +84,14 @@
   </table>
   <p>
     The weighting is deliberate: 85% goes to demand creation and capture, 15% to bottom-funnel
-    conversion. Inverting that ratio is the most common error in low-CAC-count accounts — you
+    conversion. Inverting that ratio is the most common error in accounts with few conversions — you
     cannot retarget an audience you have not built.
   </p>
 
-  <h2>Campaign structure: 11&ndash;12 campaigns, split by creative</h2>
+  <h2>Campaign structure: 11&ndash;13 campaigns, split by creative</h2>
   <p>Each funnel stage is divided so learnings arrive fast and winning creative is isolatable.</p>
   <ul>
-    <li><b>Prospecting (3).</b> 1% lookalike of best customers/SQLs first &mdash; historically the best performer. One interest campaign (HR, payroll, productivity, UMKM) for scale. One vertical-video awareness campaign to feed retargeting.</li>
+    <li><b>Prospecting (3).</b> 1% lookalike of best customers/SQLs first &mdash; typically the best performer. One interest campaign (HR, payroll, productivity, UMKM) for scale. One vertical-video awareness campaign to feed retargeting.</li>
     <li><b>Consideration (3).</b> One campaign per creative variant &mdash; video hero, static value proposition, carousel demo &mdash; so the winning angle is identifiable and can be scaled on CVR lift rather than on CTR.</li>
     <li><b>Retargeting (3&ndash;4).</b> Segmented by recency and intent: 7-day landing page visitors, video viewers at 25&ndash;75% and engagers at 7&ndash;30 days, form openers and abandoners, and past leads. Each gets different creative &mdash; urgency, case study, demo call-to-action &mdash; because a repeat of a prospecting ad to a warm audience wastes the impression.</li>
     <li><b>Lead gen &amp; conversion (2&ndash;3).</b> Meta Lead Ads instant forms and direct WhatsApp remove the friction of a web form. Web conversion campaigns feed the lookalike audience.</li>
@@ -98,14 +100,14 @@
   <h2>Creative testing: five angles</h2>
   <table>
     <tr><th>Angle</th><th>Hook</th><th>Format</th></tr>
-    <tr><td>Pain &rarr; solution</td><td>"Payroll salah lagi? Udah kena potong, kena semprot jg lagi."</td><td>15s video</td></tr>
+    <tr><td>Pain &rarr; solution</td><td>"Payroll salah lagi? Udah kena potong, kena semprot juga lagi."</td><td>15s video</td></tr>
     <tr><td>Time saved</td><td>"Hemat waktu sampai 92% per bulan &mdash; buktikan sendiri."</td><td>Infographic carousel + static</td></tr>
     <tr><td>Feature-led demo</td><td>"Absensi GPS &rarr; Payroll &rarr; auto slip"</td><td>15&ndash;30s screen-recorded product demo</td></tr>
-    <tr><td>Social proof</td><td>"Stop pusingin X; dipakai X perusahaan"</td><td>Static + testimonial clip</td></tr>
-    <tr><td>Offer / urgency</td><td>Free 30-day trial, onboarding promo</td><td>Shorts</td></tr>
+    <tr><td>Social proof</td><td>"Stop pusingin absensi; dipakai 1.000+ perusahaan" (klaim perlu diverifikasi)</td><td>Static + testimonial clip</td></tr>
+    <tr><td>Offer / urgency</td><td>Free 30-day trial, onboarding promo</td><td>Reels</td></tr>
   </table>
   <p>
-    Formats tested: Reels/Shorts at 15&ndash;45 seconds, single image, and carousel. The pain-point
+    Formats tested: Reels at 15&ndash;45 seconds, single image, and carousel. The pain-point
     and demo angles are the ones I would build first, because they target the specific failure that
     makes a prospect look up a competitor.
   </p>
@@ -130,7 +132,7 @@
 
   <h3>2. Creative and audience signals</h3>
   <p>
-    Check CTR, CPC, frequency, and relevance ranking. Falling CTR or frequency above 2.5&ndash;3 is
+    Check CTR, CPC, frequency, and quality, engagement and conversion rankings. Falling CTR or frequency above 2.5&ndash;3 is
     creative fatigue, and it needs new creative or a new audience, not a bid change.
   </p>
 

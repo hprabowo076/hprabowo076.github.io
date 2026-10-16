@@ -115,6 +115,20 @@ p code, li code, td code { background: var(--surface-2); padding: 2px 6px; borde
 footer { padding: 44px 0; color: var(--muted); font-size: 14px; }
 footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
 
+img { max-width: 100%; height: auto; }
+table { display: block; overflow-x: auto; }
+.cards.two { grid-template-columns: repeat(2, 1fr); }
+
+@media (max-width: 640px) {
+  .cards.two { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  nav .wrap { flex-wrap: wrap; height: auto; padding-top: 8px; padding-bottom: 8px; row-gap: 4px; }
+  nav .brand { white-space: nowrap; font-size: 15px; }
+  nav .links { flex-wrap: wrap; gap: 4px 12px; font-size: 12.5px; }
+}
+
 @media (max-width: 640px) {
   nav .links { gap: 14px; font-size: 13px; }
   header.hero { padding: 60px 0 48px; }
