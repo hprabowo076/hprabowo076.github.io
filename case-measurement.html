@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Measured on paid invoices — Haryo Prabowo</title>
+<meta name="description" content="Reconciling Google and Meta leads to paid invoices: Google leads convert to order at 17.2% vs 12.6% for Meta, but to a paying customer at near-parity (9.8% vs 9.5%). Paid revenue grew 84% year on year in Q3 2026.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Haryo Prabowo">
+<meta property="og:title" content="Measured on paid invoices — Haryo Prabowo">
+<meta property="og:description" content="Which channel actually brings paying customers? A CRM reconciled to paid invoices, and the reporting the team uses daily.">
+<meta property="og:url" content="https://hprabowo076.github.io/case-measurement.html">
+<meta property="og:image" content="https://hprabowo076.github.io/img/channel-conversion.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Measured on paid invoices — Haryo Prabowo">
+<meta name="twitter:description" content="Which channel actually brings paying customers? A CRM reconciled to paid invoices, and the reporting the team uses daily.">
+<meta name="twitter:image" content="https://hprabowo076.github.io/img/channel-conversion.png">
+<link rel="icon" href="favicon.svg">
+<link rel="stylesheet" href="style.css">
+<style>
+  figure { margin: 28px 0; }
+  figure img { width: 100%; height: auto; border-radius: 10px; display: block; }
+  figcaption { font-size: 0.9em; opacity: 0.75; margin-top: 8px; }
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="brand" href="index.html">Haryo Prabowo</a>
+  <div class="links">
+    <a href="index.html">Home</a>
+    <a href="case-marketing.html">Marketing</a>
+    <a href="case-kantorku.html">KantorKu</a>
+    <a href="case-infrastructure.html">Infrastructure</a>
+    <a href="case-measurement.html">Measurement</a>
+  </div>
+</div></nav>
+
+<article><div class="wrap">
+  <a class="back" href="index.html">&larr; All work</a>
+  <h1>Measured on paid invoices, not platform conversions</h1>
+  <p class="meta">
+    Marketing Manager · consumer food-service brand · Bekasi, Indonesia · live CRM data, October 2026
+  </p>
+
+  <div class="metrics" style="margin-top:40px">
+    <div class="metric"><div class="n">17.2%</div><div class="l">Google Ads lead-to-order, vs 12.6% for Meta</div></div>
+    <div class="metric"><div class="n">+84%</div><div class="l">paid revenue, Q3 2026 vs Q3 2025</div></div>
+    <div class="metric"><div class="n">19,000+</div><div class="l">CRM-recorded leads since 2022</div></div>
+  </div>
+
+  <h2>Challenge</h2>
+  <p>
+    Google Ads counts lead actions, not sales. A form fill or a WhatsApp click looks the same to the
+    platform whether it becomes an order or not, so platform conversions could not tell us where the
+    next rupiah of budget should go.
+  </p>
+
+  <h2>Solution</h2>
+  <p>
+    Every lead is captured in a self-hosted CRM I built, with its source, campaign and click IDs. Sales
+    follows up on WhatsApp from the same system, and orders and invoices link back to the lead. Budget is
+    judged on paid invoices reconciled to the CRM, not on what the ad platform reports.
+  </p>
+
+  <h2>Result</h2>
+  <p>
+    On the same CRM records, Google leads convert to order at 17.2% against 12.6% for Meta, but to a
+    paying customer at almost the same rate, 9.8% against 9.5%. Order rate alone overstates Google's edge,
+    so budget is set on paid customers, not orders.
+  </p>
+  <figure>
+    <img src="img/channel-conversion.png" alt="Bar chart: Google Ads 17.2% lead to order and 9.8% to paying customer; Meta Ads 12.6% and 9.5%.">
+    <figcaption>Conversion by channel from the live CRM. Ratios only; spend and revenue are kept private.</figcaption>
+  </figure>
+  <p>
+    Measured the same way, quarterly paid-invoice revenue in Q3 2026 was 84% higher than in Q3 2025.
+    It is one quarter; the first half of 2026 ran below the Q3 2025 level.
+  </p>
+  <figure>
+    <img src="img/paid-revenue-index.png" alt="Bar chart of paid revenue indexed to Q3 2025 = 100: Q4 2025 102, Q1 2026 74, Q2 2026 87, Q3 2026 184.">
+    <figcaption>Paid-invoice revenue by quarter, indexed to Q3 2025 = 100.</figcaption>
+  </figure>
+
+  <h2>The reporting the team uses daily</h2>
+  <p>
+    The same CRM drives a mobile-first business dashboard: ad cost, CAC, sales and target pace per
+    business unit and per channel, all computed from paid invoices. It is built for phones because that
+    is where the team reads it. In September 2026 the aqiqah unit closed at 115% of its monthly target,
+    with CAC per animal sold down 25% and sales up 15% on August. In July, after a weak June,
+    animals sold more than tripled while CAC per animal sold fell 69%.
+  </p>
+  <figure>
+    <img src="img/reporting-dashboard.png" alt="Phone screenshots of the business-performance dashboard for September and July 2026, money figures and counts masked.">
+    <figcaption>Live screens from the dashboard; money and counts masked. "Ekor" counts animals sold.</figcaption>
+  </figure>
+
+  <p><a href="case-infrastructure.html">How the stack underneath was built &rarr;</a></p>
+  <p><a href="index.html">&larr; Back to all work</a></p>
+</div></article>
+
+<footer><div class="wrap">
+  <span>Haryo Prabowo — portfolio</span>
+  <span>Bekasi, Indonesia · 2026</span>
+</div></footer>
+
+</body>
+</html>
