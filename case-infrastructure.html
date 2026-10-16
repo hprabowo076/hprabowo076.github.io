@@ -4,18 +4,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Self-hosting a business stack with AI agents — Haryo Prabowo</title>
-<meta name="description" content="How AI coding agents helped replace Google Sheets and AppSheet with a self-hosted business stack on a 2GB VPS, with no extra infrastructure spend.">
+<meta name="description" content="How AI coding agents helped replace Google Sheets and AppSheet with a self-hosted business stack on a budget VPS: TypeScript app, PostgreSQL, n8n and WhatsApp automation, with scheduled backups and a tested restore runbook.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Haryo Prabowo">
 <meta property="og:title" content="Self-hosting a business stack with AI agents — Haryo Prabowo">
-<meta property="og:description" content="No spend beyond a budget VPS and a domain: replacing a spreadsheet stack with a self-hosted system on a 2GB box, built with AI coding agents.">
+<meta property="og:description" content="Replacing a spreadsheet stack with a self-hosted system on a budget VPS: TypeScript, PostgreSQL, n8n and WhatsApp automation, built with AI coding agents.">
 <meta property="og:url" content="https://hprabowo076.github.io/case-infrastructure.html">
 <meta property="og:image" content="https://hprabowo076.github.io/og-cover.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Self-hosting a business stack with AI agents — Haryo Prabowo">
-<meta name="twitter:description" content="No spend beyond a budget VPS and a domain: replacing a spreadsheet stack with a self-hosted system on a 2GB box, built with AI coding agents.">
+<meta name="twitter:description" content="Replacing a spreadsheet stack with a self-hosted system on a budget VPS: TypeScript, PostgreSQL, n8n and WhatsApp automation, built with AI coding agents.">
 <meta name="twitter:image" content="https://hprabowo076.github.io/og-cover.png">
 <link rel="icon" href="favicon.svg">
 <link rel="stylesheet" href="style.css">
@@ -27,7 +27,7 @@
   <div class="links">
     <a href="index.html">Home</a>
     <a href="case-marketing.html">Marketing</a>
-    <a href="case-kantorku.html">Modeling</a>
+    <a href="case-kantorku.html">KantorKu</a>
     <a href="case-measurement.html">Measurement</a>
   </div>
 </div></nav>
@@ -36,118 +36,69 @@
   <a class="back" href="index.html">&larr; All work</a>
   <h1>Self-hosting a business stack with AI agents</h1>
   <p class="meta">
-    2025 &ndash; present &middot; 2 vCPU / 1.9 GiB RAM &middot; no spend beyond a budget VPS and a domain
-  </p>
-
-  <p>
-    The question I started with was simple: <em>can I replace an entire business stack — Google
-    Sheets, AppSheet, scattered forms — with something self-hosted, fast, and maintainable, without
-    spending anything beyond a budget VPS and a domain?</em>
-  </p>
-  <p>
-    The answer is running in production. This is what it took, what broke, and
-    what I'd do differently.
+    2025 &ndash; present &middot; in production &middot; budget VPS, no other recurring spend
   </p>
 
   <div class="callout">
     <p>
       <b>The one-line version:</b> I replaced a spreadsheet-and-no-code stack with a self-hosted
-      production system — built with AI coding agents, on hardware with less RAM than a modern
-      phone, without a backup plan that involved spending money.
+      production system, built with AI coding agents, with scheduled backups and a tested restore runbook.
     </p>
   </div>
 
-  <h2>The two constraints that decided everything</h2>
+  <h2>Challenge</h2>
   <p>
-    Architecture is never a series of unconstrained good decisions. These two limits predicted
-    almost every technical choice that followed.
+    The reason this exists is a marketing problem. Order flow and customer communication for inbound web
+    and WhatsApp leads were manual, the data lived in Google Sheets, AppSheet and scattered forms, and
+    nobody could get a reliable number without asking me. Two no-code backends I tried first did not fit the
+    workflow. The question became: can I replace the whole stack with something self-hosted, maintainable
+    and cheap, without adding recurring vendors?
   </p>
 
-  <h3>1. 2 vCPU and 1.9 GiB of RAM</h3>
+  <h2>Solution</h2>
   <p>
-    No burstable CPU, no SSD guarantee. The VPS is a budget machine, not a development playground. Within the first week the constraint bit: the server choked
-    during <code>apt upgrade</code>. I added a swap file. By the third week, memory pressure made
-    the box unresponsive mid-development, which led to the zram/zswap investigation and the
-    OOM-protection drop-in now sitting next to the service unit.
+    A purpose-built application on a small budget server, designed around one rule: self-host first, pay second.
+    I built it with AI coding agents and kept the architecture simple enough to run and restore by myself.
   </p>
-  <p>This single constraint explains the rest:</p>
-  <ul>
-    <li><b>No containers.</b> Container overhead was memory we did not have. systemd services only.</li>
-    <li><b>Automation is killed during upgrades.</b> When memory is the constraint, keeping automation and keeping the server responsive are real trade-offs, not best practices.</li>
-    <li><b>Playwright MCP became Playwright CLI.</b> A memory-hog process had to go.</li>
-  </ul>
-
-  <h3>2. No spend beyond a VPS and a domain</h3>
-  <p>Added spend: a budget VPS and a domain. No CI/CD service, no managed database, no monitoring SaaS, no backup vendor.</p>
-  <table>
-    <tr><th>Instead of</th><th>I used</th></tr>
-    <tr><td>Zapier / Make</td><td>Self-hosted n8n</td></tr>
-    <tr><td>RDS / Cloud SQL</td><td>PostgreSQL on the VPS</td></tr>
-    <tr><td>Backup vendor</td><td>Scheduled backups</td></tr>
-    <tr><td>CloudFront + WAF</td><td>Cloudflare free tier</td></tr>
-    <tr><td>Budibase / NocoDB Pro / AppSheet</td><td>A purpose-built application</td></tr>
-  </table>
-  <p>
-    In hindsight the budget constraint was liberating. It forced a "self-host first, pay second"
-    discipline that produced a stack with no recurring dependency beyond the box itself.
-  </p>
-
-  <h2>What runs in production</h2>
   <table>
     <tr><th>Layer</th><th>Technology</th><th>Role</th></tr>
-    <tr><td>Edge</td><td>Nginx</td><td>Reverse proxy</td></tr>
-    <tr><td>Application</td><td>Bun + Hono, TypeScript</td><td>Internal operations app and messaging bridge</td></tr>
+    <tr><td>Edge</td><td>Reverse proxy</td><td>Single entry point for the apps</td></tr>
+    <tr><td>Application</td><td>TypeScript</td><td>Internal operations app: lead capture, sales-rep assignment, dashboards</td></tr>
     <tr><td>Data</td><td>PostgreSQL</td><td>Application and automation data</td></tr>
     <tr><td>Automation</td><td>n8n</td><td>Webhook-driven workflows, self-hosted instead of Zapier</td></tr>
-    <tr><td>Integration</td><td>WhatsApp Business API via MCP tool servers</td><td>Customer communication, multiple instances</td></tr>
-    <tr><td>Observability</td><td>Uptime Kuma, logrotate, heartbeat alerting</td><td>Monitoring with push alerts</td></tr>
+    <tr><td>Messaging</td><td>WhatsApp automation</td><td>Customer follow-up from the same system</td></tr>
+    <tr><td>Operations</td><td>Monitoring, scheduled backups</td><td>Alerts, and a written, tested restore runbook</td></tr>
   </table>
-
-  <h2>Infrastructure as code, on a 2GB budget</h2>
   <p>
-    The stack is reproducible from a repository, not from muscle memory. The infrastructure repo
-    holds the installer, the backup and restore scripts, a configuration drift checker, health
-    heartbeats, and a mirror of the host's package, proxy, service, and scheduled-task
-    configuration.
-  </p>
-  <p>
-    Drift detection runs on a schedule and reports through the same heartbeat channel as backup
-    failures — so the box tells me when reality and the repo have diverged, instead of me finding
-    out during an incident. Backups run on a schedule. There is a written
-    disaster-recovery runbook, because a restore path you haven't tested is a wish, not a plan.
+    The setup is reproducible from a repository rather than from memory: installer, backup and restore
+    scripts, and a drift check that reports through the same alert channel as backup failures. A restore
+    path you have not tested is a wish, not a plan, so the runbook is exercised, not just written.
   </p>
 
-  <h2>What the agentic part actually looked like</h2>
+  <h2>What the agentic part looked like</h2>
   <p>
-    The AI did not replace engineering judgment. It replaced the throughput ceiling. Across 74
-    sessions, the whole system was built with AI coding agents.
+    The AI did not replace engineering judgment. It replaced the throughput ceiling. The hard parts were
+    not the code. They were deciding what to delete, choosing boring technology that I could operate alone,
+    and knowing when to remove a fragile dependency instead of debugging it again.
   </p>
-  <p>The hard parts were not the code. They were:</p>
-  <ul>
-    <li><b>Deciding what to delete.</b> I tried two no-code backends before building anything. Both were square pegs for a round hole, and recognizing that early saved weeks.</li>
-    <li><b>Surviving the memory wall.</b> Sessions that should have taken minutes started dying with <code>low memory (366MB free) — retiring settled workers</code>. The fix wasn't clever prompting; it was zram, swap, and killing a process that had no business being there.</li>
-    <li><b>Knowing when the symptom and the disease diverged.</b> The form-broken phase went on for days. The real fix was removing the dependency on the thing that kept breaking, not debugging it again.</li>
-  </ul>
   <div class="callout">
     <p>
       <b>The transferable lesson:</b> agentic development moves the bottleneck from typing to
       architecture and judgment. The sessions where I lost time were never the ones where the
-      model was slow — they were the ones where I hadn't decided what I wanted yet.
+      model was slow. They were the ones where I had not decided what I wanted yet.
     </p>
   </div>
 
-  <h2>Why this matters outside a marketing role</h2>
+  <h2>Result</h2>
   <p>
-    I built this while running marketing. The reason it exists is a marketing problem: order flow
-    and customer communication for inbound web and WhatsApp leads were manual, the data lived in spreadsheets, and nobody could get a
-    reliable number without asking me. Automating it was a growth decision, and it turned into an
-    infrastructure one.
+    The system has been in production since 2025. Inbound leads are captured and assigned to sales reps
+    automatically, customer messaging runs from the same system, and the team reads daily dashboards
+    computed from it. Reporting no longer depends on asking me for a number.
   </p>
   <p>
-    That is the point of this page. The marketing instinct — find the bottleneck, fix it, measure
-    the result — did not stop at the ad budget. In most companies it stops there, because the
-    person who owns the funnel is not the person who can deploy the fix. I have been both at once
-    since 2025, and I would rather keep being both than choose.
+    The marketing instinct (find the bottleneck, fix it, measure the result) did not stop at the ad budget.
+    In most companies it stops there, because the person who owns the funnel is not the person who can
+    deploy the fix. I have been both at once since 2025.
   </p>
 
   <p><a href="index.html">&larr; Back to all work</a></p>
