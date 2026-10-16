@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PaidRow — send your real sales back to Google & Meta Ads</title>
+<meta name="description" content="Mark a lead Paid in Google Sheets and the sale goes to Meta Ads and Google Ads. For businesses that close deals on WhatsApp, phone or DM.">
+<meta property="og:title" content="PaidRow — make your ads optimize for paying customers">
+<meta property="og:description" content="A Google Sheet that reports your hand-closed sales to Meta and Google Ads. No CRM, no Zapier, no monthly fee.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230f7b4f'/><path d='M9 17l5 5 9-11' stroke='white' stroke-width='3.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+<style>
+:root{--bg:#fbfaf7;--ink:#17201b;--muted:#5b6660;--line:#e3e1da;--card:#fff;--brand:#0f7b4f;--brand-ink:#fff;--soft:#e8f3ec;--warn:#fff5df}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111513;--ink:#e9eeeb;--muted:#a3ada7;--line:#2a312d;--card:#181d1a;--brand:#37b37c;--brand-ink:#08130d;--soft:#16261d;--warn:#2a2414}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+header.top{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+.logo{font-weight:800;font-size:20px;display:flex;gap:8px;align-items:center;color:var(--ink);text-decoration:none}
+.logo i{width:26px;height:26px;border-radius:7px;background:var(--brand);display:inline-grid;place-items:center;color:var(--brand-ink);font-style:normal;font-size:15px}
+nav a{color:var(--muted);text-decoration:none;margin-left:18px;font-size:15px}
+.hero{padding:56px 0 40px;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+h1{font-size:clamp(32px,5vw,50px);line-height:1.1;margin:0 0 18px;letter-spacing:-.02em}
+h2{font-size:clamp(26px,3.4vw,34px);line-height:1.2;margin:0 0 14px;letter-spacing:-.01em}
+.lead{font-size:20px;color:var(--muted);margin:0 0 26px}
+.btn{display:inline-block;background:var(--brand);color:var(--brand-ink);padding:14px 22px;border-radius:10px;font-weight:700;text-decoration:none;border:0;cursor:pointer;font-size:17px}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.small{font-size:14px;color:var(--muted)}
+.sheet{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.06);font-size:13px}
+.sheet table{width:100%;border-collapse:collapse}
+.sheet th,.sheet td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+.sheet th{background:var(--soft);font-weight:600}
+.pill{display:inline-block;padding:2px 8px;border-radius:99px;font-size:12px;font-weight:600}
+.paid{background:var(--soft);color:var(--brand)}
+.new{background:var(--warn)}
+.sent{color:var(--brand);font-weight:600}
+section{padding:56px 0;border-top:1px solid var(--line)}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}
+.card h3{margin:0 0 8px;font-size:19px}
+.num{width:30px;height:30px;border-radius:50%;background:var(--soft);color:var(--brand);display:grid;place-items:center;font-weight:800;margin-bottom:10px}
+.price{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:820px}
+.price .card{padding:28px}
+.amt{font-size:42px;font-weight:800;margin:6px 0}
+.price ul{padding-left:20px;margin:14px 0 22px}
+.featured{border:2px solid var(--brand)}
+.check li{margin:6px 0}
+details{border-bottom:1px solid var(--line);padding:14px 0}
+summary{cursor:pointer;font-weight:600}
+.quote{font-size:20px;border-left:4px solid var(--brand);padding:4px 0 4px 18px;margin:0}
+footer{padding:36px 0;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
+@media (max-width:820px){.hero,.grid3,.price{grid-template-columns:1fr}.hero{padding-top:28px}nav a:not(:last-child){display:none}.sheet{overflow-x:auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <a class="logo" href="#"><i>✓</i>PaidRow</a>
+  <nav><a href="#how">How it works</a><a href="#fit">Is it for me?</a><a href="#pricing">Pricing</a></nav>
+</header>
+
+<div class="hero">
+  <div>
+    <h1>Your ads are optimizing for chats. Make them optimize for paying customers.</h1>
+    <p class="lead">If you close sales on WhatsApp, phone or DM, Google and Meta never learn who actually paid. PaidRow is a Google Sheet: mark a lead <b>Paid</b> and the sale goes back to both ad platforms automatically.</p>
+    <div class="btns">
+      <a class="btn" href="#pricing">Get PaidRow — $49</a>
+      <a class="btn ghost" href="#pricing">Set it up for me</a>
+    </div>
+    <p class="small">One-time price. No monthly fee, no Zapier, no CRM to learn. Runs inside your own Google account.</p>
+  </div>
+  <div class="sheet" aria-label="Example of the PaidRow Leads tab">
+    <table>
+      <tr><th>Ref</th><th>Campaign</th><th>Status</th><th>Value</th><th>Meta status</th></tr>
+      <tr><td>K7QX2M</td><td>search_brand</td><td><span class="pill paid">Paid</span></td><td>$420</td><td class="sent">Sent 09:15</td></tr>
+      <tr><td>H3PZ8A</td><td>meta_lookalike</td><td><span class="pill paid">Paid</span></td><td>$260</td><td class="sent">Sent 09:15</td></tr>
+      <tr><td>W9RT4C</td><td>search_generic</td><td><span class="pill new">New</span></td><td></td><td></td></tr>
+      <tr><td>N2DF6U</td><td>meta_lookalike</td><td><span class="pill paid">Paid</span></td><td>$310</td><td class="sent">Sent 10:00</td></tr>
+    </table>
+  </div>
+</div>
+</div>
+
+<section>
+<div class="wrap">
+  <h2>The problem nobody tells small advertisers</h2>
+  <p>Google and Meta optimize toward whatever you report as a conversion. If that's a form fill or a "conversation started", they find you more people who fill forms and start chats, not people who pay. When sales close by hand, the platforms never see the sale.</p>
+  <p>The fix is called <b>offline conversion tracking</b>. Big companies wire it into Salesforce. Everyone else gives up because it means click IDs, hashing, two different APIs and fiddly upload formats.</p>
+  <p class="quote">On a real lead-gen account, Google leads reached an order more often than Meta leads (17% vs 13%), but turned into paying customers at almost the same rate (9.8% vs 9.5%). Judging by orders alone would have moved budget the wrong way.</p>
+  <p class="small">From the founder's own work running Google and Meta Ads for a consumer service business.</p>
+</div>
+</section>
+
+<section id="how">
+<div class="wrap">
+  <h2>How it works</h2>
+  <div class="grid3">
+    <div class="card"><div class="num">1</div><h3>Capture the click</h3><p>A one-line script on your landing page remembers which ad brought the visitor and adds a short <b>Ref code</b> to your WhatsApp button's message.</p></div>
+    <div class="card"><div class="num">2</div><h3>Mark the sale</h3><p>Type the Ref into the Sheet and the campaign fills in. When they pay, set Status to <b>Paid</b> and enter the amount. That's the whole daily job.</p></div>
+    <div class="card"><div class="num">3</div><h3>Ads learn who pays</h3><p>Every 15 minutes the sale goes to <b>Meta Conversions API</b> and the <b>Google Ads</b> import tab, with phone and email hashed. Your campaigns can now bid for buyers.</p></div>
+  </div>
+  <p style="margin-top:22px">Plus a <b>Report</b> tab: paying customers, revenue and <b>cost per paying customer by campaign</b>. That's the number that should decide your budget.</p>
+</div>
+</section>
+
+<section id="fit">
+<div class="wrap">
+  <h2>Is PaidRow for you?</h2>
+  <div class="grid3">
+    <div class="card"><h3>✓ Great fit</h3><ul class="check"><li>Ads send people to your website or landing page first</li><li>You close sales by WhatsApp, phone, DM or in person</li><li>You track leads in a spreadsheet (or could start)</li></ul></div>
+    <div class="card"><h3>~ Partial fit</h3><ul class="check"><li>Click-to-WhatsApp ads with no landing page: Meta matching then relies on phone number only</li><li>Agencies managing this for several clients (one copy per client)</li></ul></div>
+    <div class="card"><h3>✗ Not for you</h3><ul class="check"><li>You sell through an online checkout (Shopify and similar already report purchases)</li><li>You already use HubSpot or Salesforce integrations</li></ul></div>
+  </div>
+</div>
+</section>
+
+<section id="pricing">
+<div class="wrap">
+  <h2>Pricing</h2>
+  <div class="price">
+    <div class="card">
+      <h3>PaidRow template</h3>
+      <div class="amt">$49</div>
+      <div class="small">one-time · use it forever</div>
+      <ul>
+        <li>The PaidRow Google Sheet with the script inside</li>
+        <li>Landing-page click capture script</li>
+        <li>Step-by-step setup guide (about 30 minutes)</li>
+        <li>Email support for setup questions</li>
+        <li>Free updates</li>
+      </ul>
+      <a class="btn" href="mailto:hprabowo076@gmail.com?subject=PaidRow%20template">Email to buy (checkout opens soon)</a>
+    </div>
+    <div class="card featured">
+      <h3>Done-for-you setup</h3>
+      <div class="amt">$250</div>
+      <div class="small">one-time · ready in 3 business days</div>
+      <ul>
+        <li>Everything in the template</li>
+        <li>We connect Meta Conversions API and Google Ads for you</li>
+        <li>We install the click script on your site</li>
+        <li>Test sale verified in both platforms</li>
+        <li>30-minute walkthrough call with your team</li>
+      </ul>
+      <a class="btn" href="https://www.fiverr.com/ryo_hp/set-up-and-optimize-google-ads-and-meta-ads-with-conversion-tracking">Book the setup</a>
+    </div>
+  </div>
+  <p class="small" style="margin-top:16px">14-day money-back guarantee: if PaidRow can't send a test sale to your Meta dataset, you get a full refund. Prices in USD. Ad spend not included.</p>
+</div>
+</section>
+
+<section>
+<div class="wrap">
+  <h2>Questions</h2>
+  <details><summary>Do I need to know how to code?</summary><p>No. You copy a Sheet, click a menu item, paste two IDs and one line on your website. The guide shows every click. If you'd rather not, pick the done-for-you setup.</p></details>
+  <details><summary>Is my customer data safe?</summary><p>It never leaves your Google account except to go to Meta and Google, hashed with SHA-256 as both platforms require. PaidRow has no server, and we never see your data.</p></details>
+  <details><summary>Does it work with WhatsApp Business (the free app)?</summary><p>Yes. The click script adds a Ref code to the message customers send you, and you type it into the Sheet. You don't need the WhatsApp Business API.</p></details>
+  <details><summary>Why not just use Zapier?</summary><p>You can, but you'd pay monthly, build the hashing and formatting yourself, and still have no cost-per-paying-customer report. PaidRow is one price, done.</p></details>
+  <details><summary>Which countries and currencies?</summary><p>Any. You set your currency and calling code once in Settings.</p></details>
+  <details><summary>Who makes this?</summary><p>PaidRow is made by Tomato Roll, a small performance-marketing studio. The founder has run Google and Meta Ads for a lead-gen business for 4+ years and built this to judge spend on paid invoices, not chats.</p></details>
+</div>
+</section>
+
+<footer>
+<div class="wrap">© 2026 Tomato Roll · <a href="mailto:hprabowo076@gmail.com" style="color:inherit">hprabowo076@gmail.com</a> · <a href="privacy.html" style="color:inherit">Privacy</a> · <a href="terms.html" style="color:inherit">Terms & refunds</a></div>
+</footer>
+</body>
+</html>
